@@ -1,0 +1,39 @@
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-gray-900 text-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <div class="flex flex-col items-center">
+            <div class="mb-6">
+                <svg class="w-20 h-20 text-red-500 animate-pulse" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 9v3h6V9m-6 6h6m-3-6h6m-6 6h3m3 0a3 3 0 01-6 0h6zm-6 0a3 3 0 00-3-3 3 3 0 00-3 3h6z" />
+                </svg>
+            </div>
+            <h2 class="text-xl font-bold mb-4 text-center">Fluency Analysis Result</h2>
+            <div class="w-full bg-gray-800 text-white p-4 rounded mb-4">
+                <p class="text-sm text-justify">{{feedback.text}}</p>
+            </div>
+             <div class="w-full bg-gray-800 text-white p-4 rounded mb-4">
+                <h3 class="text-lg font-bold mb-2">Analysis Details</h3>
+                <p class="text-sm">{{ feedback.analysis.english_sentence_structures }}</p>
+                <p class="text-sm">{{ feedback.analysis.filler_and_repetitive_words }}</p>
+                <p class="text-sm">{{ feedback.analysis.fluency_score }}</p>
+                <ul class="list-disc list-inside">
+                    <li *ngFor="let feedback of feedback?.analysis?.feedback_for_improvement" class="text-sm">{{ feedback
+                        }}</li>
+                </ul>
+            </div> 
+            <div class="flex space-x-4">
+                <button
+                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
+                    (click)="startListening()" [disabled]="isListening">
+                    Start
+                </button>
+                <button
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
+                    (click)="stopListening()" [disabled]="!isListening">
+                    Stop
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

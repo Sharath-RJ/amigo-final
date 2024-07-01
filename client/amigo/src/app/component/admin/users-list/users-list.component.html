@@ -1,0 +1,43 @@
+<div class="p-6 bg-gray-800 text-white">
+    <h2 class="text-lg font-semibold mb-4">User Management</h2>
+    <div class="overflow-x-auto">
+        <table class="table-auto w-full border-collapse">
+            <thead>
+                <tr class="bg-gray-700">
+                    
+                    <th class="px-4 py-2">Username</th>
+                    <th class="px-4 py-2">Email</th>
+                    <th class="px-4 py-2">Block/UNblock</th>
+                    <th class="px-4 py-2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let user of userList | paginate:{itemsPerPage:5, currentPage:p}">
+                    <tr class="bg-gray-600 border-b-4 border-gray-700 hover:bg-gray-700 transition-colors">
+                       
+                        <td class="px-4 py-2">{{ user.username }}</td>
+                        <td class="px-4 py-2">{{ user.email }}</td>
+                        <td>
+                            
+                        <button *ngIf="user.isBlocked" (click)="unblockUser(user._id)"
+                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Unblock</button>
+                        <button *ngIf="!user.isBlocked" (click)="blockUser(user._id)"
+                            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Block</button>
+
+                        </td>
+                        <td>
+                            <button (click)="openEditDialog(user)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+                                Edit
+                            </button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+
+    <div class="bg-gray-800 text-white p-4 rounded-lg shadow-lg flex justify-center mt-6">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Amigo</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://accounts.google.com/gsi/client" async></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://unpkg.com/zego-zim-web@2.5.0/index.js"></script>
+  <script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+  
+    <!-- Stripe script -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+</head>
+<body class="mat-typography">
+  <app-root></app-root>
+
+  <!-- <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+  <script src="https://mediafiles.botpress.cloud/e705f823-798a-47d2-bb1d-3b09da9bd276/webchat/config.js" defer></script>-->
+
+  <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script> 
+  <script>
+    window.botpressWebChat.init({
+      "composerPlaceholder": "Chat with bot",
+      "botConversationDescription": "Hello Amigo Here",
+      "botId": "e705f823-798a-47d2-bb1d-3b09da9bd276",
+      "hostUrl": "https://cdn.botpress.cloud/webchat/v1",
+      "messagingUrl": "https://messaging.botpress.cloud",
+      "clientId": "e705f823-798a-47d2-bb1d-3b09da9bd276",
+      "webhookId": "034951a0-0beb-4951-a9c6-1593414ee2cc",
+      "lazySocket": true,
+      "themeName": "prism",
+      "frontendVersion": "v1",
+      "showPoweredBy": true,
+      "theme": "prism",
+      "themeColor": "#ff0000",
+      "allowedOrigins": []
+    });
+
+    
+  </script>
+</body>
+</html>

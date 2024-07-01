@@ -1,0 +1,87 @@
+     /* Dark mode */
+        body {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+
+        .card {
+            background-color: #2d3748;
+            border-color: #4a5568;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+
+        .card-img {
+            width: 100px;
+            height: 100px;
+            margin-left:40px;
+            margin-top: 20px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%; /* Makes the image round */
+        }
+
+        .sidebar {
+            width: 80px; /* Width of the sidebar */
+            background-color: #2d3748;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 1000; /* Ensure it overlays content */
+        }
+
+        .sidebar-item {
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar-item:hover {
+            background-color: #4a5568;
+        }
+
+        .sidebar-item img {
+            width: 24px;
+            height: 24px;
+        }
+
+          .search-bar {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border: 2px solid #4a5568;
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 999px; /* Round the corners */
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); /* Focus ring */
+        }
+
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .search-icon:hover {
+            transform: translateY(-50%) scale(1.1); /* Scale up on hover */
+        }

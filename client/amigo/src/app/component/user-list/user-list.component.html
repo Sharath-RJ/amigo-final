@@ -1,0 +1,39 @@
+<body class="min-h-screen text-white">
+    <div class="flex bg-gray-800 min-h-screen">
+        <!-- Sidebar (Fixed) -->
+        <app-icon-sidebar-menu class="w-1/5 md:w-1/6 lg:w-1/12"></app-icon-sidebar-menu>
+
+        <!-- Main Content -->
+        <div class="w-4/5 md:w-5/6 lg:w-11/12 p-10">
+            <!-- Search Bar -->
+            <!-- <app-search></app-search> -->
+            <div class="mb-6">
+                <div class="relative w-64">
+                    <input type="text" placeholder="Search..." [(ngModel)]="userFilter.username"
+                        class="w-full py-2 pl-10 pr-4 bg-gray-800 border border-gray-700 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                    <i class="fas fa-search absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+
+            <!-- User Cards Grid -->
+            <div class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <app-user-card *ngFor="let user of users | paginate:{itemsPerPage:8, currentPage:p}  | filterBy: userFilter" [user]="user" ></app-user-card>
+            </div>
+            
+            <div *ngIf="(users | filterBy: userFilter).length === 0" class="flex justify-center items-center mt-6">
+                <div class="bg-gray-400 text-white p-7 rounded-lg shadow-lg">
+                    <h3>No User Found</h3>
+                </div>
+            </div>
+            
+            <div class="bg-gray-900 text-white p-4 rounded-lg shadow-lg flex justify-center mt-6">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+

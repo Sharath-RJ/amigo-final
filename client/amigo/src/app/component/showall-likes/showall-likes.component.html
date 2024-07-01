@@ -1,0 +1,19 @@
+<div class="max-w-lg mx-auto">
+    <div class="bg-gray-800 shadow-md rounded-lg overflow-hidden">
+        <div class="px-4 py-3 border-b border-gray-600">
+            <h2 class="text-lg font-semibold text-gray-200">Likes</h2>
+        </div>
+        <div class="p-4">
+            <ul>
+                <li *ngFor="let like of likes" class="py-2">
+                    <div class="flex items-center">
+                        <img [src]="like.profilePic" alt="User Avatar" class="h-8 w-8 rounded-full mr-2">
+                        <span class="font-semibold text-gray-200">{{like.username}}</span>
+                        <span class="text-gray-400 ml-2">liked your post</span>
+                    </div>
+                </li>
+            </ul>
+            <div *ngIf="likes.length === 0" class="text-gray-400 text-center mt-4">No likes yet.</div>
+        </div>
+    </div>
+</div>

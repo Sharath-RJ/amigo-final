@@ -1,0 +1,78 @@
+<body class="bg-gray-800 min-h-screen flex flex-col">
+    <div class="flex-grow flex flex-row">
+        <!-- Sidebar Menu -->
+        <div class="bg-gray-800 w-59 fixed inset-y-0 left-0 z-50 overflow-y-auto">
+            <app-icon-sidebar-menu></app-icon-sidebar-menu>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-grow ml-32 bg-gray-800 p-6">
+            <!-- User Profile Section -->
+            <div class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col md:flex-row items-center">
+                <img class="w-32 h-32 rounded-full border-4 border-gray-600 mb-4 md:mb-0" [src]="profilePic"
+                    (click)="onProfilePicClick()" alt="User Profile Picture" />
+
+                <input type="file" #fileInput accept="image/*" (change)="onFileSelected($event)"
+                    style="display: none;" />
+                <div class="md:ml-6 text-center md:text-left">
+                    <h2 class="text-2xl text-white font-bold">{{ username }}</h2>
+                    <div class="flex justify-center md:justify-start mt-4">
+                        <div class="mr-6">
+                            <p class="text-xl text-white font-semibold">{{ posts.length }}</p>
+                            <p class="text-gray-400">Posts</p>
+                        </div>
+                        <div class="mr-6" (click)="openFollowersModal()">
+                            <p class="text-xl text-white font-semibold">{{ followers.length }}</p>
+                            <p class="text-gray-400">Followers</p>
+                        </div>
+                        <div class="mr-6" (click)="openFollowingModal()">
+                            <p class="text-xl text-white font-semibold">{{ following.length }}</p>
+                            <p class="text-gray-400">Following</p>
+                        </div>
+                    </div>
+                </div>
+                <button routerLink="/progress"
+                    class="absolute top-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700">
+                    Show Progress
+                </button>
+            </div>
+
+            <!-- User Posts Section -->
+            <div class="mt-10 bg-gray-900 w-full">
+                <h3 *ngIf="posts.length" class="text-xl font-semibold mb-4">Posts</h3>
+                <div class="bg-gray-900 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div *ngFor="let item of posts | paginate:{itemsPerPage:3, currentPage:p}"
+                        class="bg-gray-800 rounded-lg shadow-lg p-4 flex flex-col relative">
+                        <p class="text-gray-400 mt-2">{{ item.caption }}</p>
+                        <div class="absolute top-4 right-4 flex space-x-2">
+                            <button class="text-gray-400 hover:text-gray-200">
+                                <i class="fas fa-edit" (click)="openEditModal(item)"></i>
+                            </button>
+                            <button class="text-gray-400 hover:text-gray-200">
+                                <i class="fas fa-trash" (click)="deletePost(item)"></i>
+                            </button>
+                        </div>
+
+                        <div class="image-container bg-gray-600 rounded-lg overflow-hidden mb-4">
+                            <owl-carousel-o [options]="customOptions">
+                                <ng-template carouselSlide *ngFor="let image of item.image">
+                                    <img [src]="'http://localhost:5000/uploads/' + image" alt="Post Image"
+                                        class="w-80 h-80">
+                                </ng-template>
+                            </owl-carousel-o>
+                        </div>
+                    </div>
+
+                    <!-- No Posts Message -->
+                    <div *ngIf="posts.length === 0" class="col-span-full text-center">
+                        <h1>No Posts</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 text-white p-4 rounded-lg shadow-lg flex justify-center mt-6">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</body>

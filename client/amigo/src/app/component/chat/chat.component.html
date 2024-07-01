@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Column Layout</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body class="bg-gray-900 h-screen text-white">
+    <div class="flex h-full">
+        <!-- Left Container (8%) -->
+        <app-icon-sidebar-menu></app-icon-sidebar-menu>
+
+        <!-- Middle Container (30%) -->
+        <div class="w-3/12 md:w-3/10 bg-gray-800 p-4 flex flex-col">
+           
+            <div class="w-full flex items-center pl-[10px] bg-gray-700 h-[70px] rounded-lg">
+                <img [src]="userProfilePic" class="rounded-full mr-4 ml-2" width="40px" height="40px" alt="">
+                <h2 class="font-bold">{{username}}</h2>
+            </div>
+            <!--Search container-->
+            <div class="mt-6">
+                <div class="relative w-64">
+                    <input type="text" placeholder="Search..."   [(ngModel)]="userFilter.username"
+                        class="w-full py-2 pl-10 pr-4 bg-gray-800 border-bottom border-gray-700 text-white placeholder-gray-400 transition duration-200">
+                    <i class="fas fa-search absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+
+            <div class="overflow-y-auto mt-4">
+                <ul *ngFor="let user of chattedUsers | filterBy: userFilter" class="list-none p-2 bg-gray-800 shadow-md rounded-lg space-y-[1px]">
+                    <li [routerLink]="['/chat', user._id]" (click)="selectedUserId = user._id" 
+                        [ngClass]="{'bg-gray-700': selectedUserId === user._id, 'hover:bg-gray-700': selectedUserId !== user._id}"
+                        class="p-2 cursor-pointer flex items-center transition duration-200 ease-in-out rounded-lg">
+                        <img [src]="user.profilePic" alt="User Pic" width="30px" height="30px" class="rounded-full mr-3">
+                        <span class="font-medium">{{user.username}}</span>
+                    </li>
+                    <!--No user found-->
+                   
+                </ul>
+                <div *ngIf="(chattedUsers | filterBy: userFilter).length === 0" class="flex justify-center items-center mt-6">
+                    <div>
+                        <h3>No User Found</h3>
+                    </div>
+                </div>
+               
+              
+            </div>
+        </div>
+
+        <!-- Right Container (62%) -->
+        <div *ngIf="selectedUserId  else defaultChat" class="w-8/12 md:w-19/30 bg-gray-900 p-4 flex flex-col">
+            <div class="flex items-center justify-between p-4 border-b border-gray-700">
+                <div class="flex items-center">
+                    <img [src]="currentUserDetails.profilePic" width="50px" height="50px" alt="Chat User Pic" class="rounded-full mr-3">
+                    <div>
+                        <h2 class="text-xl font-bold">{{currentUserDetails.username}}</h2>
+                        <!-- <p class="text-sm text-gray-400">Online</p> -->
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <i (click)="connectToVideoCall()" class="fas fa-video text-xl text-gray-400 hover:text-white cursor-pointer"></i>
+                    <!-- <i class="fas fa-phone text-xl text-gray-400 hover:text-white cursor-pointer"></i>
+                    <i class="fas fa-paperclip text-xl text-gray-400 hover:text-white cursor-pointer"></i> -->
+                </div>
+            </div>
+
+    <!-- Chat Messages -->
+    <div #chatContainer class="chat-container flex-grow p-4 overflow-y-auto h-[70vh] bg-gray-800 rounded-lg mt-4">
+        <ng-container *ngFor="let message of messages; let i = index">
+            <div *ngIf="message.content" class="max-w-xs mb-4 p-3 rounded-lg" [ngClass]="{
+            'bg-blue-600 text-white rounded-lg rounded-tr-none ml-auto': message.sender === senderId,
+            'bg-gray-700 text-white rounded-lg rounded-tl-none self-start': message.sender !== senderId
+          }">
+                <p>{{ message.content }}</p>
+            </div>
+
+            <!--Containter for audio player-->
+    <div *ngIf="message.audioUrl" class="flex mt-10 mb-10 items-center space-x-2 w-[300px] h-[50px] p-1 rounded shadow-sm"
+        [ngClass]="{
+          'bg-blue-600 text-white rounded-lg rounded-tr-none ml-auto': message.sender === senderId,
+          'bg-gray-700 text-white rounded-lg rounded-tl-none self-start': message.sender !== senderId
+        }">
+        <button (click)="playAudio(message, i)" class="w-5 h-5 text-gray-600">
+            <i [ngClass]="currentIndex === i && isplaying ? 'fas fa-pause' : 'fas fa-play'"></i>
+        </button>
+        <div class="flex-1 bg-gray-200 rounded-full overflow-hidden h-1 relative">
+            <div [style.width.%]="messageProgress[i]" class="absolute top-0 left-0 h-full bg-gray-800"></div>
+        </div>
+        <span class="text-xs text-gray-600">{{ formatTime(messageDurations[i]) }}</span>
+       
+    </div>
+
+            
+        </ng-container>
+
+      
+
+    </div>
+
+            <!-- Message Input -->
+            <div class="flex items-center p-4 border-t border-gray-700 mt-4">
+                <form action="" (submit)="sendMessage()" class="flex items-center flex-grow">
+                    <input type="text" name="content" [(ngModel)]="content"
+                        class="p-2 w-80 border border-gray-700 rounded-full bg-gray-800 text-white placeholder-gray-400"
+                        placeholder="Type your message...">
+                    <button type="submit" class="ml-4 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700">Send</button>
+                    <!--button for grammar check-->
+                     <button (click)="checkGrammar()" type="button"
+                        class="ml-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">Grammar
+                        Doctor</button> 
+                     <button (click)="openModal()" type="button"
+                        class="ml-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">Evaluate Fluency</button> 
+                    <i *ngIf="resording" (click)="stopRecording()"
+                        class="fas fa-microphone text-xl text-red-400  cursor-pointer ml-4"></i>
+                    <i *ngIf="!resording" (click)="startRecording()"
+                        class="fas fa-microphone text-xl text-gray-400  cursor-pointer ml-4"></i>
+                        <div class="bodyLoader" *ngIf="voiceSending">
+                           <div class="VoiceSendloader">
+                             <span class="dot"></span>
+                             <span class="dot"></span>
+                             <span class="dot"></span>
+                            </div>
+                        </div>
+                </form>
+            </div>
+
+           
+
+
+        </div>
+    </div>
+
+<ng-template #defaultChat>
+    <div class="w-8/12 md:w-9/12 bg-gray-900 p-4 flex flex-col items-center justify-center h-full">
+        <div class="text-center">
+            <div class="text-6xl text-gray-400">
+                <i class="fas fa-comment"></i>
+            </div>
+            <div class="text-3xl font-bold mb-4">
+                Start a new chat
+            </div>
+            <div class="text-lg text-gray-500 mb-8">
+                You have no active chats. Start chatting with someone.
+            </div>
+           
+        </div>
+    </div>
+</ng-template>
+
+    
+</body>
+
+</html>

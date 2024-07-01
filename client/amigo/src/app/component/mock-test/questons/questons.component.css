@@ -1,0 +1,54 @@
+ .highlight-border {
+        animation: highlight 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes highlight {
+        from {
+            border-color: #4CAF50; /* Green */
+            box-shadow: 0 0 10px #4CAF50; /* Green */
+        }
+        to {
+            border-color: #00BFFF; /* Deep Sky Blue */
+            box-shadow: 0 0 20px #00BFFF; /* Deep Sky Blue */
+        }
+    }
+
+/* questons.component.css */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  border: 8px solid rgba(255, 255, 255, 0.1);
+  border-top: 8px solid #ffffff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+ 
+.glowStar {
+        width: 50px;
+        height: 50px;
+        background-image: url("../../../../assets/starglow.png");
+        background-size: cover;
+        animation: float 1s ease-in-out infinite alternate; /* Animate the stars */
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(-10px);
+        }
+    }
+
+.emptyStar{
+      width: 30px;
+      height: 30px;
+      background-image: url("../../../../assets/star.png");
+      background-size: cover;
+}

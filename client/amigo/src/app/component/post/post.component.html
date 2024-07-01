@@ -1,0 +1,64 @@
+<div *ngFor="let post of posts">
+  <div *ngIf="post.status === 'Published' || post.user._id === userId"
+    class="bg-gray-800 border border-gray-700 rounded-lg shadow-md p-4 mb-4 text-white">
+    <div class="flex items-center mb-4">
+      <img [src]="post.user.profilePic" alt="User Avatar" class="h-10 w-10 rounded-full mr-2">
+      <span class="font-semibold text-gray-200">{{ post.user.username }}</span>
+    </div>
+
+    <!-- image container -->
+    <div *ngIf="post.status === 'Published'; else elseBlock"
+      class="image-container bg-gray-600 rounded-lg overflow-hidden mb-4">
+      <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide *ngFor="let image of post.image">
+          <img [src]="'http://localhost:5000/uploads/' + image" alt="Post Image"
+            class="w-full mb-2 rounded-[6px] p-2 border border-gray-600">
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+
+    <ng-template #elseBlock>
+      <div class="image-container bg-gray-600 rounded-lg overflow-hidden mb-4 flex items-center justify-center">
+        <div class="loader-container">
+          <div class="loader"></div>
+          <h3 class="text-gray-200 mt-2">Post Pending...</h3>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="flex items-center justify-between mb-2">
+      <div class="flex items-center space-x-4">
+        <button [disabled]="post.status !== 'Published'" *ngIf="postLiked[post._id]" (click)="unlikePost(post._id)"
+          class="focus:outline-none">
+          <i class="fas fa-heart text-xl text-red-600"></i>
+        </button>
+        <button [disabled]="post.status !== 'Published'" *ngIf="!postLiked[post._id]" (click)="likePost(post._id)"
+          class="focus:outline-none">
+          <i class="fas fa-heart text-xl text-gray-400"></i>
+        </button>
+
+        <button [disabled]="post.status !== 'Published'" (click)="showAddComment(post._id)" class="focus:outline-none">
+          <i class="fas fa-comment text-xl text-gray-400"></i>
+        </button>
+      </div>
+
+      <div>
+        <span  (click)="post.status === 'Published' &&  showAllLikes(post._id)" class="text-gray-400 cursor-pointer">{{ post.likes.length }} likes</span>
+        <span (click)="post.status === 'Published' && showAllComments(post._id)" class="text-gray-400 cursor-pointer ml-2">{{ post.comments.length }}
+          comments</span>
+      </div>
+    </div>
+
+    <div *ngIf="activeCommentPostId === post._id">
+      <app-add-comment [postId]="post._id" (commentsAdded)="handleCommentsAdded($event)"></app-add-comment>
+    </div>
+
+    <div *ngIf="activeCommentPostId === post._id">
+      <app-showall-comments [postId]="post._id"></app-showall-comments>
+    </div>
+
+    <div *ngIf="activeLikePostId === post._id">
+      <app-showall-likes [postId]="post._id"></app-showall-likes>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<body class="bg-gray-900 text-white">
+    <div class="flex h-screen">
+      
+    
+           <app-icon-sidebar-menu></app-icon-sidebar-menu>
+            
+        
+
+
+        <div class="w-3/4 p-6 overflow-y-auto">
+            <div class="flex justify-end mb-4">
+               
+            </div>
+            <div [chart]="linechart">
+            
+            </div>
+
+            <div>
+                <h2>Fluency Levels</h2>
+                <div [chart]="barchart"></div>
+            </div>
+           
+         
+        </div>
+
+     
+    </div>
+</body>

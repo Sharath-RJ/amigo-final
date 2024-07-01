@@ -1,0 +1,21 @@
+<div class="max-w-md bg-gray-700 p-8 rounded-lg shadow-md flex items-center">
+    <form (ngSubmit)="addingComment()" #commentForm="ngForm">
+        <input [(ngModel)]="comment" type="text" id="commentName" name="commentName"
+            class="flex-1 mr-2 px-3 py-2 w-90 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:border-indigo-500 bg-gray-700 text-white"
+            placeholder="Enter command ..." required #commentInput="ngModel">
+<div *ngIf="commentForm.submitted && commentInput.invalid" class="text-red-500 mt-2">
+    <div>
+        Comment is required.
+    </div>
+</div>
+
+        <button type="submit" [disabled]="commentForm.invalid"
+            class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md">
+            Add Command
+        </button>
+    </form>
+</div>
+
+
+
+

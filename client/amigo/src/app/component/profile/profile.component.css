@@ -1,0 +1,33 @@
+.owl-carousel .owl-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.owl-carousel .owl-nav button {
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.owl-carousel .owl-dots {
+    position: absolute;
+    bottom: -30px; /* Adjust based on your design */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.owl-carousel .owl-dot {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    cursor: pointer;
+}

@@ -1,0 +1,36 @@
+
+
+<!-- src/app/components/talk-to-me/talk-to-me.component.html -->
+<div class="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div class="bg-gray-800 rounded-lg p-6 shadow-xl text-center w-80">
+        <h1 class="text-2xl mb-4">Talk to AI</h1>
+        <button (click)="startListening()"  class="bg-purple-600 hover:bg-purple-700  text-white 
+                   font-bold py-2 px-4 rounded-full transition-transform transform 
+                   hover:scale-105 disabled:cursor-not-allowed">
+            <i class="fas fa-microphone mr-2"></i>
+            Start Conversation
+        </button>
+        
+        <div class="mt-4 flex items-center justify-center" *ngIf="isListening">
+            <i class="fas fa-spinner fa-spin mr-2"></i>
+            Listening...
+        </div>
+            <p>{{ speechRecognitionService.text }}</p>
+        <div class="mt-4 flex items-center justify-center" *ngIf="isProcessing">
+            <i class="fas fa-spinner fa-spin mr-2"></i>
+            Processing...
+        </div>
+        <div class="mt-4 text-lg animate-fade-in" *ngIf="responseText" >
+             {{ responseText }}
+        </div>
+    </div>
+</div>
+
+
+<div style="text-align:center">
+    <h1>Speech to Text Conversion</h1>
+    <button (click)="startListening()">Start Conversion</button>
+
+
+</div>
+

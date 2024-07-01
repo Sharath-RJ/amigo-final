@@ -1,0 +1,21 @@
+.modal-container {
+  text-align: center;
+}
+
+.modal-header {
+  margin-bottom: 20px;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.microphone-icon {
+  font-size: 100px;
+  color: #3f51b5;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-around;
+}

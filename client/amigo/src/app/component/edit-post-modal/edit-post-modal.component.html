@@ -1,0 +1,25 @@
+<!-- edit-post-modal.component.html -->
+<h2 mat-dialog-title>Edit Post</h2>
+<mat-dialog-content>
+    <form [formGroup]="editForm">
+        <mat-form-field class="full-width">
+            <mat-label>Captions</mat-label>
+            <input matInput formControlName="caption">
+        </mat-form-field>
+        <div class="image-gallery flex space-x-4">
+        <div *ngFor="let image of data.image; trackBy: trackByImageId" class="image-item">
+            <img [src]="'http://localhost:5000/uploads/' + image" alt="Post Image"
+                class="w-40 h-40 object-cover rounded-md border border-gray-300">
+            <button mat-icon-button (click)="deleteImage(extractImageId(image))">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+
+        </div>
+        <!-- <input type="file" (change)="onFileSelected($event)"> -->
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button color="primary" (click)="onSave()">Save</button>
+</mat-dialog-actions>

@@ -1,0 +1,4 @@
+html, body {
+            height: 100%;
+            background-color: #1a202c; /* This is bg-gray-900 in Tailwind CSS */
+        }

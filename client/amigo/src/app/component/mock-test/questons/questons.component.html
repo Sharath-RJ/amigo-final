@@ -1,0 +1,66 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+    <div class="max-w-xl w-full p-6 bg-gray-800 border border-gray-700 rounded-lg shadow-2xl">
+        <ng-container *ngIf="!loading; else loadingTemplate">
+            <ng-container *ngIf="currentQuestionIndex < questions.length; else scoreTemplate">
+                <h2>Question {{currentQuestionIndex + 1}}</h2>
+                <div class="border border-gray-500 rounded-lg p-6 shadow-md mb-8 highlight-border">
+                    <p class="text-lg mb-4 text-center">{{questions[currentQuestionIndex].question}}</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button *ngFor="let option of questions[currentQuestionIndex].options"
+                        (click)="answerQuestion(option)"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transform transition-transform duration-300 hover:scale-105">
+                        {{option}}
+                    </button>
+                </div>
+            </ng-container>
+            <ng-template #scoreTemplate>
+    <div class="text-center bg-gray-900 text-white min-h-screen" *ngIf="!resultloaing else loadingTemplate">
+        <h2 class="text-2xl mb-4 text-yellow-300">Quiz Completed</h2>
+        <div class="flex justify-center items-center mb-4">
+            <!-- Animated Star Rating -->
+            <div class="flex items-center">
+               
+                <div class="flex">
+                    <div  [ngClass]="{'glowStar': i < star_rating, 'emptyStar': i >= star_rating}"
+                        *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+                    </div>
+
+                    
+
+                </div>
+            </div>
+            <!-- Total Score -->
+            <span class="ml-4 text-yellow-300">Score: <span id="score">{{score}}</span>/<span
+                    id="total">{{questions.length}}</span></span>
+        </div>
+        <!-- Proficiency Level and Feedback -->
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg text-left">
+            <p class="text-lg font-semibold mb-2 text-yellow-300">Proficiency Level: {{proficiency_level}}</p>
+            <p class="mb-4 text-gray-300">Feedback: {{feedback}}</p>
+            <!-- Action Button -->
+            <button
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4 transition-all duration-300 transform hover:scale-105">
+                Restart Quiz
+            </button>
+        </div>
+    </div>
+    
+    <!-- Loading Template -->
+    <ng-template #loadingTemplate>
+        <div class="text-center bg-gray-900 text-white min-h-screen flex items-center justify-center">
+            <div class="loader"></div>
+            <p>Loading...</p>
+        </div>
+    </ng-template>
+
+            </ng-template>
+        </ng-container>
+        <ng-template #loadingTemplate>
+        <div class="text-center">
+            <div class="spinner"></div>
+            <p>Loading questions...</p>
+        </div>
+        </ng-template>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="p-6 bg-gray-900 text-gray-200">
+    <h2 class="text-lg font-semibold mb-4">Content Management</h2>
+    <div class="overflow-x-auto">
+        <table class="table-auto w-full border-collapse border border-gray-700">
+            <thead>
+                <tr class="bg-gray-700 text-gray-300">
+                    <th class="px-4 py-2 border-r-4 border-gray-800">Post ID</th>
+                    <th class="px-4 py-2 border-r-4 border-gray-800">User</th>
+                    <th class="px-4 py-2 border-r-4 border-gray-800">Caption/Description</th>
+                    <th class="px-4 py-2 border-r-4 border-gray-800">Likes</th>
+                    <th class="px-4 py-2 border-r-4 border-gray-800">Comments</th>
+                    <th class="px-4 py-2 border-r-4 border-gray-800">Date Posted</th>
+                    <th class="px-4 py-2 border-r-4 border-gray-800">Status</th>
+                    <th class="px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let post of posts | paginate: { itemsPerPage: 5, currentPage: p }" class="bg-gray-800 border-b border-gray-700 hover:bg-gray-700">
+                    <td class="px-4 py-2 border-r-2 border-gray-700">{{ post._id }}</td>
+                    <td class="px-4 py-2 border-r-2 border-gray-700">{{ post.user.username }}</td>
+                    <td class="px-4 py-2 border-r-2 border-gray-700">{{ post.caption }}</td>
+                    <td class="px-4 py-2 border-r-2 border-gray-700">{{ post.likes.length }}</td>
+                    <td class="px-4 py-2 border-r-2 border-gray-700">{{ post.comments.length }}</td>
+                    <td class="px-4 py-2 border-r-2 border-gray-700">{{ post.createdAt }}</td>
+                    <td class="px-4 py-2 border-r-2 border-gray-700">{{ post.status }}</td>
+                    <td class="px-4 py-2">
+                        <button [routerLink]="['/viewPost/', post._id]" routerLinkActive="router-link-active"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            View
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="bg-gray-800 text-white p-4 rounded-lg shadow-lg flex justify-center mt-6">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="flex h-screen bg-gray-900 text-white">
+  <!-- Sidebar -->
+  <div class="w-1/4 fixed h-full">
+    <app-menu></app-menu>
+  </div>
+  <div class="w-1/4"></div> <!-- Spacer to account for the fixed menu -->
+
+  <!-- Main Content -->
+  <div class="w-1/2 ml-1/4 overflow-y-auto h-full custom-scrollbar">
+    <div class="mb-4">
+      <app-stories></app-stories>
+    </div>
+    <app-feed></app-feed>
+  </div>
+
+  <!-- Right Sidebar -->
+  <div class="w-1/4 flex flex-col items-center justify-start space-y-4 p-4">
+    <!-- Profile and Notification Container -->
+    <div class="w-full flex items-center justify-between bg-gray-800 p-4 rounded-lg shadow-md">
+      <div routerLink="/profile" class="flex items-center">
+        <img [src]="picture" alt="Profile Picture" class="w-10 h-10 rounded-full border border-gray-700">
+        <p class="text-sm font-medium text-white ml-4">Hey! {{name}}</p>
+      </div>
+      <div routerLink="/myAppointments" class="flex items-center">
+        
+        <i class="far fa-calendar-alt text-xl cursor-pointer"></i>
+
+      </div>
+      <div routerLink="/notifications" class="relative">
+        <i class="fas fa-bell text-xl cursor-pointer"></i>
+        <!-- <span class="absolute top-0 right-0 inline-block w-2.5 h-2.5 bg-red-600 rounded-full"></span> -->
+        <!-- Notification Badge -->
+      </div>
+    </div>
+
+    <!-- Other Content (if any) -->
+    <div class="w-full">
+      <!-- Additional content can be placed here -->
+    </div>
+  </div>
+</div>

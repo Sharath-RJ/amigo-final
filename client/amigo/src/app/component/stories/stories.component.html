@@ -1,0 +1,20 @@
+<div class="container mx-auto px-4 py-4">
+    <div class="flex space-x-4 overflow-x-auto">
+        <!-- Story 1 -->
+        <div class="flex flex-col items-center ">
+            <div routerLink="/liveStream" class="border-r-4 border-gray-500 w-16 h-16 rounded-full border-4  overflow-hidden">
+                <img [src]="picture" alt="Story" class="w-full h-full object-cover">
+            </div>
+            <p class="text-center mt-2">Go Live</p>
+        </div>
+        <!-- Add more stories as necessary -->
+
+        <div class="flex flex-col items-center" *ngFor="let item of liveUses">
+            <div (click)="joinLive(item.liveLink)" class="w-16 h-16 rounded-full border-4 border-blue-500 overflow-hidden">
+                <img [src]="item.profilePic" alt="Story" class="w-full h-full object-cover">
+            </div>
+            <p class="text-center mt-2">{{item.username}}</p>
+        </div>
+
+    </div>
+</div>

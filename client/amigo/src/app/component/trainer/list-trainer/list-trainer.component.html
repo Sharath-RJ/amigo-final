@@ -1,0 +1,44 @@
+<body class="">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <app-icon-sidebar-menu></app-icon-sidebar-menu>
+      
+    </div>
+
+    <!--search bar-->
+    <div class="search-bar mb-6">
+        <input type="text" placeholder="Search trainers..." class="search-input"  [(ngModel)]="userFilter.username">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 search-icon" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15.5 15.5L20 20m-4.5-4.5a6 6 0 1 1-8.485-8.485 6 6 0 0 1 8.485 8.485z" />
+        </svg>
+    </div>
+
+    <!-- Main content -->
+    <div class="max-w-4xl mt-10 mx-auto pl-20 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    
+    
+        
+        <div *ngFor="let trainer of trainers | filterBy: userFilter" class="card rounded-lg overflow-hidden shadow-md hover:shadow-lg">
+            <div class="card-img bg-cover bg-center" style="background-image: url({{trainer.profilePic}});">
+            </div>
+            <div class="p-4">
+                <h3 class="text-lg text-white font-semibold mb-2">{{trainer.fullName}}</h3>
+                <p class="text-sm text-gray-400 mb-4">{{trainer.specialization}}</p>
+                <button [routerLink]="'/TrainerProfile/' + trainer._id" 
+                    class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500">View
+                    Profile</button>
+            </div>
+        
+        </div>
+
+            <div *ngIf="(trainers | filterBy: userFilter).length === 0" class="flex justify-center items-center mt-6">
+                <div class=" text-white p-7 rounded-lg shadow-lg">
+                    <h3>No Trainers Found</h3>
+                </div>
+            </div>
+
+
+    </div>
+</body>

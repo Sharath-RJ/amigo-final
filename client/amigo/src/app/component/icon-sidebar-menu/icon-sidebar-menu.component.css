@@ -1,0 +1,30 @@
+  .icon {
+    font-size: 2rem; /* Adjust size as needed */
+    color: #808080; /* Default icon color */
+    transition: color 0.3s ease; /* Smooth color transition */
+    position: relative; /* Required for pseudo-element positioning */
+  }
+  
+  .icon:hover {
+    color: #ffffff; /* Change icon color on hover */
+  }
+  
+  .icon::after {
+    content: attr(title); /* Use the title attribute content */
+    background-color:transparent; /* Tooltip background color */
+    color: white; /* Tooltip text color */
+    font-size: 13px; /* Tooltip text size */
+    padding: 0.17rem; /* Padding around the text */
+    border-radius: 0.25rem; /* Rounded corners */
+    position: absolute; /* Position tooltip */
+    bottom: -1.5rem; /* Adjust distance from icon */
+    left: 100%; /* Center tooltip horizontally */
+    transform: translateX(-50%); /* Center tooltip horizontally */
+    opacity: 0; /* Initially hidden */
+    pointer-events: none; /* Prevent tooltip from blocking hover */
+    transition: opacity 0.3s ease; /* Smooth opacity transition */
+  }
+  
+  .icon:hover::after {
+    opacity: 1; /* Show tooltip on hover */
+  }

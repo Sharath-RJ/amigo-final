@@ -1,0 +1,11 @@
+ .menu-item-container {
+        background-color: #d1d5db64; /* Grey background color */
+        padding: 5px 50px;/* Adjust padding as needed */
+        border-radius: 0.5rem; /* Rounded corners */
+        height: 4rem; /* Set the height to make the container longer */
+        line-height: 2.5rem; /* Vertical centering */
+    }
+
+    .menu-item-container:hover {
+        background-color: #f3f4f627; /* Light grey background color on hover */
+    }
