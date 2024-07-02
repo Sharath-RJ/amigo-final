@@ -10,26 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TwilioService = void 0;
-const twilio_1 = require("twilio");
 class TwilioService {
-    constructor(accountSid, authToken, fromNumber) {
-        this.client = new twilio_1.Twilio(accountSid, authToken);
-        this.fromNumber = fromNumber;
-        console.log("from number", this.fromNumber);
-    }
+    constructor(accountSid, authToken, fromNumber) { }
     generateOtp() {
         return Math.floor(1000 + Math.random() * 9000).toString(); // Generates a number between 1000 and 9999
     }
     sendOtp(phoneNumber) {
         return __awaiter(this, void 0, void 0, function* () {
             const otp = this.generateOtp();
-            console.log("from phone number", this.fromNumber);
             try {
-                // await this.client.messages.create({
-                //     body: `Your verification code is ${otp}`,
-                //     from: this.fromNumber, // This is the Twilio phone number
-                //     to: "+91"+phoneNumber,
-                // })
                 console.log(`OTP sent to ${phoneNumber}`);
                 return 2222;
             }

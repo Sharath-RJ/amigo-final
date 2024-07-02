@@ -10,7 +10,6 @@ import { isBlocked } from "../middlewares/checkBlockMiddleware"
 import * as speech from "@google-cloud/speech"
 const { protos } = require("@google-cloud/speech")
 import { connect } from "http2"
-import Content from "twilio/lib/rest/Content"
 import axios from "axios"
 import { promisify } from "util"
 import fs from "fs"
