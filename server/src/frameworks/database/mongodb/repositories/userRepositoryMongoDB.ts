@@ -1,7 +1,7 @@
 
 import { UserRepository } from "../../../../app/repositories/userReppository"
 import { User } from "../../../../entities/user"
-import { UserModel} from "../../../../frameworks/database/mongodb/models/userModel"
+import { UserDocument, UserModel} from "../../../../frameworks/database/mongodb/models/userModel"
 import { AuthService } from "../../../services/authService"
 
 export class UserRepositoryMongo implements UserRepository {
@@ -22,8 +22,8 @@ export class UserRepositoryMongo implements UserRepository {
             return false
         }
     }
-async authenticateUser(email: string): Promise<User | null> {
-    const user = await UserModel.findOne({ email });
+async authenticateUser(email: string): Promise<any> {
+    const user = (await UserModel.findOne({ email }))
     if (user && user.password) {
         return user;
     } else {

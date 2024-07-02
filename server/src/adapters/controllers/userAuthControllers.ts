@@ -75,11 +75,11 @@ export class AuthController {
         try {
             const { username, email, password, phoneNumber, role } = req.body
             console.log("inside conteoller", req.body)
-            // const otp = await this.authUseCase.generateOtp(phoneNumber)
+            const otp = await this.authUseCase.generateOtp(phoneNumber)
             await TempOtp.findOneAndUpdate(
                 { phoneNumber },
                 {
-                    // otp,
+                    otp,
                     phoneNumber,
                     createdAt: new Date(),
                     username,
@@ -120,7 +120,7 @@ export class AuthController {
             console.log("stored data otp", storedOtp)
             console.log("Otp from user:", otp)
 
-            if (storedOtp !== otp) {
+            if (storedOtp == otp) {
                 
                 if (!storedData?.username || !storedData?.email || !storedData?.password || !storedData?.phoneNumber) {
                      res

@@ -80,9 +80,9 @@ class AuthController {
             try {
                 const { username, email, password, phoneNumber, role } = req.body;
                 console.log("inside conteoller", req.body);
-                // const otp = await this.authUseCase.generateOtp(phoneNumber)
+                const otp = yield this.authUseCase.generateOtp(phoneNumber);
                 yield tempOtpModel_1.TempOtp.findOneAndUpdate({ phoneNumber }, {
-                    // otp,
+                    otp,
                     phoneNumber,
                     createdAt: new Date(),
                     username,
@@ -115,7 +115,7 @@ class AuthController {
                 const storedOtp = storedData === null || storedData === void 0 ? void 0 : storedData.otp;
                 console.log("stored data otp", storedOtp);
                 console.log("Otp from user:", otp);
-                if (storedOtp !== otp) {
+                if (storedOtp == otp) {
                     if (!(storedData === null || storedData === void 0 ? void 0 : storedData.username) || !(storedData === null || storedData === void 0 ? void 0 : storedData.email) || !(storedData === null || storedData === void 0 ? void 0 : storedData.password) || !(storedData === null || storedData === void 0 ? void 0 : storedData.phoneNumber)) {
                         res
                             .status(400)

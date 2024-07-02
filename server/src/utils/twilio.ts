@@ -17,13 +17,13 @@ export class TwilioService {
         const otp = this.generateOtp()
         console.log("from phone number",this.fromNumber)
         try {
-            await this.client.messages.create({
-                body: `Your verification code is ${otp}`,
-                from: this.fromNumber, // This is the Twilio phone number
-                to: "+91"+phoneNumber,
-            })
+            // await this.client.messages.create({
+            //     body: `Your verification code is ${otp}`,
+            //     from: this.fromNumber, // This is the Twilio phone number
+            //     to: "+91"+phoneNumber,
+            // })
             console.log(`OTP sent to ${phoneNumber}`)
-            return otp;
+            return 2222;
         } catch (error) {
             throw new Error(`Failed to send OTP: ${error}`)
         }

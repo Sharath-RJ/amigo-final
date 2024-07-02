@@ -32,7 +32,7 @@ class UserRepositoryMongo {
     }
     authenticateUser(email) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield userModel_1.UserModel.findOne({ email });
+            const user = (yield userModel_1.UserModel.findOne({ email }));
             if (user && user.password) {
                 return user;
             }

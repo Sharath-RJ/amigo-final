@@ -16,7 +16,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // MongoDB connection URL
-        const mongoUrl = "mongodb+srv://Sharath:ktzZg1jp34FdGhAh@amigo.63tytsf.mongodb.net/?retryWrites=true&w=majority&appName=Amigo";
+        const mongoUrl = "mongodb+srv://Sharath:ktzZg1jp34FdGhAh@amigo.63tytsf.mongodb.net/?retryWrites=true&w=majority&tls=true&tlsVersion=1.2&appName=Amigo";
         // Connect to MongoDB
         yield mongoose_1.default.connect(mongoUrl);
         console.log("Connected to MongoDB");
