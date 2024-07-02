@@ -16,9 +16,15 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // MongoDB connection URL
-        const mongoUrl = "mongodb+srv://Sharath:ktzZg1jp34FdGhAh@amigo.63tytsf.mongodb.net/?retryWrites=true&w=majority&tls=true&tlsVersion=1.2&appName=Amigo";
+        const mongoUrl = "mongodb+srv://Sharath:ktzZg1jp34FdGhAh@amigo.63tytsf.mongodb.net/?retryWrites=true&w=majority&appName=Amigo";
+        const options = {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            tls: true,
+            tlsInsecure: true, // Bypass certificate validation for testing purposes. Remove this option in production.
+        };
         // Connect to MongoDB
-        yield mongoose_1.default.connect(mongoUrl);
+        yield mongoose_1.default.connect(mongoUrl, options);
         console.log("Connected to MongoDB");
     }
     catch (error) {
