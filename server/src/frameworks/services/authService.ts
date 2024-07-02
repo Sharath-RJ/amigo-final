@@ -4,7 +4,7 @@ import configKeys from "../../config"
 import { TwilioService } from "../../utils/twilio"
 import { AuthServiceInterface } from "../../app/services/authServiceInterface"
 export  class AuthService implements AuthServiceInterface {
-    private _twilioService  = new  TwilioService(configKeys.TWILIO_ACCOUNT_SID, configKeys.TWILIO_AUTH_TOKEN, configKeys.TWILIO_NUMBER)
+    private _twilioService  = new  TwilioService()
 
 
     encryptPassword(password: string): string {

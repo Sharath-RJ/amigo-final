@@ -2,7 +2,7 @@
 
 export class TwilioService {
 
-    constructor(accountSid: string, authToken: string, fromNumber: string) {}
+    constructor() {}
     private generateOtp(): string {
         return Math.floor(1000 + Math.random() * 9000).toString() // Generates a number between 1000 and 9999
     }
