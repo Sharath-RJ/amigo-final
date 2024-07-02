@@ -24,7 +24,7 @@ export  class AuthService implements AuthServiceInterface {
         console.log("inside logic", phoneNumber)
         const otpStatus = this._twilioService .sendOtp(phoneNumber)
         
-
+  
         return otpStatus
     }
 }
