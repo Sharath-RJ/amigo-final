@@ -51,6 +51,7 @@ export class PostsDetailsComponent implements OnInit {
       const id = params['id'];
       this._http.get(`${environment.apiUrl}/admin/viewPost/` + id).subscribe(
         (data) => {
+        
           this.post = data;
         },
         (error) => {

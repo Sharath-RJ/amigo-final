@@ -4,7 +4,7 @@
     <div class="w-72 h-72 rounded-lg overflow-hidden border-4 border-gray-700">
         <owl-carousel-o [options]="customOptions">
             <ng-template carouselSlide *ngFor="let image of post.image">
-                <img [src]="'http://localhost:5000/uploads/' + image" alt="Post Image"
+                <img [src]="image"  alt="Post Image"
                     class="">
             </ng-template>
         </owl-carousel-o>
