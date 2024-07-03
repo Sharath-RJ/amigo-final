@@ -17,7 +17,7 @@ export  class AuthService implements AuthServiceInterface {
 }
 
     generateToken(id: string): string {
-        const token = jwt.sign({ id }, configKeys.JWT_KEY, { expiresIn: "5d" })
+        const token = jwt.sign({ id }, "secret", { expiresIn: "5d" })
         return token
     }
     generateOTP(phoneNumber: string): Promise<any> {
