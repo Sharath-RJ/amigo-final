@@ -16,10 +16,10 @@ export class PostController {
             const { caption, user } = req.body
             const files = req.files as Express.Multer.File[]
 
-            const imagePaths = files.map((file) => file.filename)
+            const imageUrls = files.map((file) => (file as any).path) // Cloudinary URLs are in `path`
 
             const success = await this.postUseCase.addPost(
-                imagePaths,
+                imageUrls,
                 caption,
                 user
             )
@@ -150,34 +150,34 @@ export class PostController {
                 postid,
                 image
             )
-            if(success){
+            if (success) {
                 res.status(201).json(success)
             }
         } catch (error) {
             console.log(error)
         }
     }
-    async deletePost(req:customRequest, res:Response):Promise<any>{
+    async deletePost(req: customRequest, res: Response): Promise<any> {
         try {
-            const {postid}= req.params
+            const { postid } = req.params
             const success = await this.postUseCase.deletePost(postid)
-            if(success){
-                res.status(201).json(success) 
+            if (success) {
+                res.status(201).json(success)
             }
         } catch (error) {
             console.log(error)
         }
     }
 
-    async updatePost(req:customRequest, res:Response):Promise<any>{
+    async updatePost(req: customRequest, res: Response): Promise<any> {
         try {
             console.log("hello")
-            const {postid}= req.params
-            const {caption}= req.body
-            const success = await this.postUseCase.updatePost(postid,caption)
+            const { postid } = req.params
+            const { caption } = req.body
+            const success = await this.postUseCase.updatePost(postid, caption)
             console.log(success)
-            if(success){
-                res.status(201).json(success) 
+            if (success) {
+                res.status(201).json(success)
             }
         } catch (error) {
             console.log(error)

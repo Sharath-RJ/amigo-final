@@ -3,6 +3,7 @@ import { Request, Response } from "express"
 import { AuthUseCase } from "../../app/useCases/auth/userAuth"
 import { AuthResponse } from "../../types/authResponse"
 import { TempOtp } from "../../frameworks/database/mongodb/models/tempOtpModel"
+import { error } from "node:console"
 
 export class AuthController {
     constructor(private authUseCase: AuthUseCase) {}
@@ -63,7 +64,7 @@ export class AuthController {
                 })
             } else {
                 console.log("Invalid email or password for email:", email)
-                res.status(401).json({ message: "Invalid email or password" })
+                res.status(401).json({ error: "Invalid email or password" })
             }
         } catch (error) {
             console.error("Error during login:", error)

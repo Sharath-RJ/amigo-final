@@ -66,7 +66,7 @@ class AuthController {
                 }
                 else {
                     console.log("Invalid email or password for email:", email);
-                    res.status(401).json({ message: "Invalid email or password" });
+                    res.status(401).json({ error: "Invalid email or password" });
                 }
             }
             catch (error) {

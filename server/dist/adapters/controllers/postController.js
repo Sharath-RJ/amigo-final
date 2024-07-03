@@ -19,8 +19,8 @@ class PostController {
             try {
                 const { caption, user } = req.body;
                 const files = req.files;
-                const imagePaths = files.map((file) => file.filename);
-                const success = yield this.postUseCase.addPost(imagePaths, caption, user);
+                const imageUrls = files.map((file) => file.path); // Cloudinary URLs are in `path`
+                const success = yield this.postUseCase.addPost(imageUrls, caption, user);
                 if (success) {
                     res.status(201).json({
                         message: "Post created successfully",

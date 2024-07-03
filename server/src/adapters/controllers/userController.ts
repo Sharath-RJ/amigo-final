@@ -15,6 +15,8 @@ export class userConteoller {
             if (users) {
                 console.log(users)
                 res.status(200).json(users)
+            }else{
+                res.status(404).json({error:"User not found"})
             }
         } catch (error) {
             console.log(error)
@@ -28,6 +30,8 @@ export class userConteoller {
             console.log(user)
             if (user) {
                 res.status(200).json(user)
+            }else{
+                res.status(404).json({error:"User not found"})
             }
         } catch (error) {
             console.log(error)
@@ -39,6 +43,8 @@ export class userConteoller {
             const user = await this._userUseCase.unfollowUser(followId, userId)
             if (user) {
                 res.status(200).json(user)
+            }else{
+                res.status(404).json({error:"User not found"})
             }
         } catch (error) {
             console.log(error)
@@ -55,6 +61,8 @@ export class userConteoller {
             )
             if (user) {
                 res.status(200).json(user)
+            }else{
+                res.status(404).json({error:"Cannot update profile pic"})
             }
         } catch (error) {
             console.log(error)
@@ -68,6 +76,8 @@ export class userConteoller {
             const user = await this._userUseCase.goLive(livelink, req.user._id)
             if (user) {
                 res.status(200).json(user)
+            }else{
+                res.status(404).json({error:"Cannot go live"})
             }
         } catch (error) {
             console.log(error)
@@ -79,7 +89,8 @@ export class userConteoller {
             const users = await this._userUseCase.getLiveUsers()
             if (users) {
                 res.status(200).json(users)
-            }
+            }else{
+                res.status(404).json({error:"Cannot get live users"})}
         } catch (error) {
             console.log(error)
         }
@@ -95,6 +106,8 @@ export class userConteoller {
             )
             if (user) {
                 res.status(200).json(user)
+            }else{
+                res.status(404).json({error:"Cannot stop live"})
             }
         } catch (error) {
             console.log(error)
@@ -107,6 +120,8 @@ export class userConteoller {
             console.log("ooooooooooooooooooooooooo",userDetails)
             if(userDetails) {
                 res.status(200).json(userDetails)
+            }else{
+                res.status(404).json({error:"User not found"})
             }
         } catch (error) {
             console.log(error)
