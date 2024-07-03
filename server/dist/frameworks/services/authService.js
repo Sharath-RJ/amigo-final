@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const config_1 = __importDefault(require("../../config"));
 const twilio_1 = require("../../utils/twilio");
 class AuthService {
     constructor() {
@@ -30,7 +31,7 @@ class AuthService {
         });
     }
     generateToken(id) {
-        const token = jsonwebtoken_1.default.sign({ id }, "secret", { expiresIn: "5d" });
+        const token = jsonwebtoken_1.default.sign({ id }, config_1.default.JWT_KEY, { expiresIn: "5d" });
         return token;
     }
     generateOTP(phoneNumber) {
