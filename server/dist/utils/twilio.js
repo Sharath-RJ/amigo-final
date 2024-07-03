@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TwilioService = void 0;
 class TwilioService {
-    constructor(accountSid, authToken, fromNumber) { }
+    constructor() { }
     generateOtp() {
         return Math.floor(1000 + Math.random() * 9000).toString(); // Generates a number between 1000 and 9999
     }
