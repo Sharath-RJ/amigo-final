@@ -42,6 +42,7 @@ export class AuthController {
             const { username, email, password, phoneNumber, role } = req.body
             console.log("inside conteoller", req.body)
             const otp = await this.authUseCase.generateOtp(email)
+            console.log("OTP generated:", otp)
             await TempOtp.findOneAndUpdate(
                 { phoneNumber },
                 {
