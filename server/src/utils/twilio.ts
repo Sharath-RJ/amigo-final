@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer"
+import configKeys from "../config"
 
 export class mailService {
     constructor() {}
@@ -13,8 +14,8 @@ export class mailService {
             port: 587, // Replace with your SMTP port
             secure: false, // true for 465, false for other ports
             auth: {
-                user: "kerdostech@gmail.com", // Replace with your email
-                pass: "cdap dbiq vrkw skds", // Replace with your email password
+                user: configKeys.email, // Replace with your email
+                pass: configKeys.emailPassword, // Replace with your email password
             },
             tls: {
                 rejectUnauthorized: false, // Allow self-signed certificates

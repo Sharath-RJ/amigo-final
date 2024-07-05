@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mailService = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
+const config_1 = __importDefault(require("../config"));
 class mailService {
     constructor() { }
     generateOtp() {
@@ -27,8 +28,8 @@ class mailService {
                 port: 587, // Replace with your SMTP port
                 secure: false, // true for 465, false for other ports
                 auth: {
-                    user: "kerdostech@gmail.com", // Replace with your email
-                    pass: "cdap dbiq vrkw skds", // Replace with your email password
+                    user: config_1.default.email, // Replace with your email
+                    pass: config_1.default.emailPassword, // Replace with your email password
                 },
                 tls: {
                     rejectUnauthorized: false, // Allow self-signed certificates

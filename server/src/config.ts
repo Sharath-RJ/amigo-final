@@ -7,7 +7,9 @@ const configKeys = {
     PORT: process.env.PORT,
     TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID as string,
     TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN as string  ,
-    TWILIO_NUMBER: process.env.TWILIO_NUMBER as string
+    TWILIO_NUMBER: process.env.TWILIO_NUMBER as string,
+    emailPassword: process.env.emailPassword as string,
+    email: process.env.email as string,
 }
 
 

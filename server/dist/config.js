@@ -11,6 +11,8 @@ const configKeys = {
     PORT: process.env.PORT,
     TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
-    TWILIO_NUMBER: process.env.TWILIO_NUMBER
+    TWILIO_NUMBER: process.env.TWILIO_NUMBER,
+    emailPassword: process.env.emailPassword,
+    email: process.env.email,
 };
 exports.default = configKeys;
