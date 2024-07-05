@@ -32,7 +32,7 @@ class mailService {
                     pass: config_1.default.emailPassword, // Replace with your email password
                 },
                 tls: {
-                    rejectUnauthorized: false, // Allow self-signed certificates
+                    rejectUnauthorized: true, // Allow self-signed certificates
                 },
             });
             const mailOptions = {

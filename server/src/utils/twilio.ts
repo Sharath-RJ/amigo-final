@@ -18,7 +18,7 @@ export class mailService {
                 pass: configKeys.emailPassword, // Replace with your email password
             },
             tls: {
-                rejectUnauthorized: false, // Allow self-signed certificates
+                rejectUnauthorized: true, // Allow self-signed certificates
             },
         })
         const mailOptions = {
