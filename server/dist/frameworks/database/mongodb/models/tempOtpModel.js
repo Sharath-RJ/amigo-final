@@ -28,10 +28,9 @@ const mongoose_1 = __importStar(require("mongoose"));
 const TempOtpSchema = new mongoose_1.Schema({
     phoneNumber: { type: String, required: true, unique: true },
     otp: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
     username: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    role: { type: String, enum: ['Admin', 'Trainer', 'User'], default: 'User' },
-});
+    role: { type: String, enum: ['Trainer', 'User'], default: 'User' },
+}, { timestamps: true });
 exports.TempOtp = mongoose_1.default.model("TempOtp", TempOtpSchema);

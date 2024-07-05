@@ -1,6 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { environment } from '../../../../environment';
+interface CommentResponse {
+  comment: {
+    text: string;
+    postedBy: string;
+    _id: string;
+    createdAt: string;
+  };
+  // Add other fields if needed
+}
 
 
 @Component({
@@ -13,14 +22,14 @@ export class AddCommentComponent {
   @Output() commentsAdded = new EventEmitter<any>();
   comment: string = '';
   constructor(private _http: HttpClient) {}
- 
+
   addingComment() {
-    console.log("adding comment")
+    console.log('adding comment');
     const loggedInUserId = sessionStorage.getItem('loginedInUser');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${sessionStorage.getItem('token')}`,
     });
-   
+
     this._http
       .put(
         `${environment.apiUrl}/post/commentPost/` + this.postId,
@@ -31,9 +40,9 @@ export class AddCommentComponent {
       )
       .subscribe(
         (data) => {
-        this.comment = ' ';
-        this.commentsAdded.emit(data);
-        //notify commentation
+          this.comment = ' ';
+          this.commentsAdded.emit(data);
+          //notify commentation
         },
         (error) => {
           console.log(error);

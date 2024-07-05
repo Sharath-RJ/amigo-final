@@ -8,42 +8,7 @@ import { error } from "node:console"
 export class AuthController {
     constructor(private authUseCase: AuthUseCase) {}
 
-    // private temporaryStore: {
-    //     [key: string]: {
-    //         otp: string
-    //         username: string
-    //         email: string
-    //         password: string
-    //         phoneNumber: string
-            
-    //     }
-    // } = {}
-
-    // async register(req: Request, res: Response, ): Promise<void> {
-    //     try {
-    //         const { username, email, password, PhoneNumber } = req.body
-    //         console.log("meflemlfml", PhoneNumber)
-    //         const sendOtp = await this.authUseCase.generateOtp(PhoneNumber)
-    //         console.log("ooootttpp", sendOtp)
-    //         const success = await this.authUseCase.register(
-    //             username,
-    //             email,
-    //             password,
-    //             PhoneNumber
-    //         )
-    //         if (success) {
-    //             res.status(201).json({
-    //                 message: "User registered successfully",
-    //                 otp: sendOtp,
-    //             })
-    //         } else {
-    //             res.status(400).json({ error: "Registration failed" })
-    //         }
-    //     } catch (error) {
-    //         console.log(error)
-    //         res.status(500).json({ error: "Internal server error" })
-    //     }
-    // }
+   
 
     async login(req: Request, res: Response): Promise<void> {
         try {
@@ -76,7 +41,7 @@ export class AuthController {
         try {
             const { username, email, password, phoneNumber, role } = req.body
             console.log("inside conteoller", req.body)
-            const otp = await this.authUseCase.generateOtp(phoneNumber)
+            const otp = await this.authUseCase.generateOtp(email)
             await TempOtp.findOneAndUpdate(
                 { phoneNumber },
                 {
@@ -120,6 +85,24 @@ export class AuthController {
             const storedOtp = storedData?.otp
             console.log("stored data otp", storedOtp)
             console.log("Otp from user:", otp)
+
+                        // Check if the OTP has expired
+
+
+             const createdAt = storedData?.createdAt
+             if (!createdAt) {
+                 console.log("createdAt is undefined")
+                 res.status(400).json({ error: "Invalid stored data" })
+                 return
+             }
+            
+            const expiringTime = createdAt.getTime()
+            const otpAge = (new Date().getTime() - expiringTime) / 1000 / 60; // Age in minutes
+            if (otpAge > 3) {
+                console.log("OTP has expired");
+                 res.status(400).json({ error: "OTP has expired" });
+            }
+
 
             if (storedOtp == otp) {
                 

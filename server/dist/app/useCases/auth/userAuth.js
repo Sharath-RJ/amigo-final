@@ -43,10 +43,10 @@ class AuthUseCase {
             return null;
         });
     }
-    generateOtp(phoneNumber) {
+    generateOtp(email) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("generate otp use case", phoneNumber);
-            return yield this._authService.generateOTP(phoneNumber);
+            console.log("generate otp use case", email);
+            return yield this._authService.generateOTP(email);
         });
     }
 }

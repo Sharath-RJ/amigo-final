@@ -32,8 +32,8 @@ export class AuthUseCase {
 }
 
 
-    async generateOtp(phoneNumber: string): Promise<any> {
-        console.log("generate otp use case",phoneNumber)
-        return await this._authService.generateOTP(phoneNumber)
+    async generateOtp(email: string): Promise<any> {
+        console.log("generate otp use case",email)
+        return await this._authService.generateOTP(email)
     }
 }

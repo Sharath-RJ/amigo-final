@@ -19,7 +19,7 @@ const config_1 = __importDefault(require("../../config"));
 const twilio_1 = require("../../utils/twilio");
 class AuthService {
     constructor() {
-        this._twilioService = new twilio_1.TwilioService();
+        this.mailService = new twilio_1.mailService();
     }
     encryptPassword(password) {
         const salt = bcryptjs_1.default.genSaltSync(10);
@@ -34,9 +34,9 @@ class AuthService {
         const token = jsonwebtoken_1.default.sign({ id }, config_1.default.JWT_KEY, { expiresIn: "5d" });
         return token;
     }
-    generateOTP(phoneNumber) {
-        console.log("inside logic", phoneNumber);
-        const otpStatus = this._twilioService.sendOtp(phoneNumber);
+    generateOTP(email) {
+        console.log("inside logic", email);
+        const otpStatus = this.mailService.sendOtp(email);
         return otpStatus;
     }
 }
