@@ -47,6 +47,7 @@ class AuthController {
                 const { username, email, password, phoneNumber, role } = req.body;
                 console.log("inside conteoller", req.body);
                 const otp = yield this.authUseCase.generateOtp(email);
+                console.log("OTP generated:", otp);
                 yield tempOtpModel_1.TempOtp.findOneAndUpdate({ phoneNumber }, {
                     otp,
                     phoneNumber,
