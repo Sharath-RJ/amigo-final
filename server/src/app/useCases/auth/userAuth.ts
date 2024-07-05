@@ -33,7 +33,7 @@ export class AuthUseCase {
 
 
     async generateOtp(email: string): Promise<any> {
-        console.log("generate otp use case",email)
+        console.log("generate otp via email",email)
         return await this._authService.generateOTP(email)
     }
 }

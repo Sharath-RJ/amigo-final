@@ -45,7 +45,7 @@ class AuthUseCase {
     }
     generateOtp(email) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("generate otp use case", email);
+            console.log("generate otp via email", email);
             return yield this._authService.generateOTP(email);
         });
     }

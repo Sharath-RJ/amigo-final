@@ -23,7 +23,7 @@ export  class AuthService implements AuthServiceInterface {
         return token
     }
     generateOTP(email: string): Promise<any> {
-        console.log("inside logic", email)
+        console.log("inside logic to send email", email)
         const otpStatus = this.mailService.sendOtp(email)
 
         return otpStatus

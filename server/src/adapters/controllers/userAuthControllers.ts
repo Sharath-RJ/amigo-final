@@ -77,6 +77,7 @@ export class AuthController {
                 console.log(
                     "No stored data found for phone number:",
                     phoneNumber
+                    
                 )
                  res
                     .status(400)
