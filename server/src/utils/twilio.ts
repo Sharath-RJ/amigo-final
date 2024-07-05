@@ -7,6 +7,7 @@ export class mailService {
         return Math.floor(1000 + Math.random() * 9000).toString() // Generates a number between 1000 and 9999
     }
     async sendOtp(email: string): Promise<any> {
+        console.log("inside nodemailer", email)
         const otp = this.generateOtp()
 
         const transporter = nodemailer.createTransport({

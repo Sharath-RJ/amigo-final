@@ -22,6 +22,7 @@ class mailService {
     }
     sendOtp(email) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("inside nodemailer", email);
             const otp = this.generateOtp();
             const transporter = nodemailer_1.default.createTransport({
                 host: "smtp.gmail.com", // Replace with your SMTP host
