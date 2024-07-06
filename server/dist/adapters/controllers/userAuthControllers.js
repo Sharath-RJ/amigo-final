@@ -75,55 +75,56 @@ class AuthController {
                 console.log("stored data inside the verify function", storedData);
                 if (!storedData) {
                     console.log("No stored data found for phone number:", phoneNumber);
-                    res
+                    return res
                         .status(400)
                         .json({ error: "Invalid phone number or OTP" });
                 }
-                const storedOtp = storedData === null || storedData === void 0 ? void 0 : storedData.otp;
+                const storedOtp = storedData.otp;
                 console.log("stored data otp", storedOtp);
                 console.log("Otp from user:", otp);
-                // Check if the OTP has expired
-                const createdAt = storedData === null || storedData === void 0 ? void 0 : storedData.createdAt;
+                const createdAt = storedData.createdAt;
                 if (!createdAt) {
                     console.log("createdAt is undefined");
-                    res.status(400).json({ error: "Invalid stored data" });
-                    return;
+                    return res.status(400).json({ error: "Invalid stored data" });
                 }
                 const expiringTime = createdAt.getTime();
                 const otpAge = (new Date().getTime() - expiringTime) / 1000 / 60; // Age in minutes
                 if (otpAge > 3) {
                     console.log("OTP has expired");
-                    res.status(400).json({ error: "OTP has expired" });
+                    return res.status(400).json({ error: "OTP has expired" });
                 }
                 if (storedOtp == otp) {
-                    if (!(storedData === null || storedData === void 0 ? void 0 : storedData.username) || !(storedData === null || storedData === void 0 ? void 0 : storedData.email) || !(storedData === null || storedData === void 0 ? void 0 : storedData.password) || !(storedData === null || storedData === void 0 ? void 0 : storedData.phoneNumber)) {
-                        res
+                    if (!storedData.username ||
+                        !storedData.email ||
+                        !storedData.password ||
+                        !storedData.phoneNumber) {
+                        return res
                             .status(400)
                             .json({ error: "Invalid stored user data" });
                     }
                     // OTP is correct, register the user
-                    if ((storedData === null || storedData === void 0 ? void 0 : storedData.username) !== undefined) {
-                        const success = yield this.authUseCase.register(storedData === null || storedData === void 0 ? void 0 : storedData.username, storedData === null || storedData === void 0 ? void 0 : storedData.email, storedData === null || storedData === void 0 ? void 0 : storedData.password, storedData === null || storedData === void 0 ? void 0 : storedData.phoneNumber, storedData === null || storedData === void 0 ? void 0 : storedData.role);
-                        if (success) {
-                            // Remove the OTP entry after successful registration
-                            yield tempOtpModel_1.TempOtp.deleteOne({ phoneNumber });
-                            res.status(200).json({
-                                message: "OTP verified and user registered successfully",
-                            });
-                        }
-                        else {
-                            res.status(400).json({ error: "Registration failed" });
-                        }
+                    const success = yield this.authUseCase.register(storedData.username, storedData.email, storedData.password, storedData.phoneNumber, storedData.role);
+                    if (success) {
+                        // Remove the OTP entry after successful registration
+                        yield tempOtpModel_1.TempOtp.deleteOne({ phoneNumber });
+                        return res.status(200).json({
+                            message: "OTP verified and user registered successfully",
+                        });
+                    }
+                    else {
+                        return res
+                            .status(400)
+                            .json({ error: "Registration failed" });
                     }
                 }
                 else {
                     console.log("Invalid OTP");
-                    res.status(400).json({ error: "Invalid OTP" });
+                    return res.status(400).json({ error: "Invalid OTP" });
                 }
             }
             catch (error) {
                 console.error("OTP verification error:", error);
-                res.status(500).json({ error: "Internal server error" });
+                return res.status(500).json({ error: "Internal server error" });
             }
         });
     }
