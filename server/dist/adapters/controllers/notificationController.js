@@ -22,7 +22,7 @@ class notificationController {
             try {
                 const { message, receiverId } = req.body;
                 const notified = yield this._notificationUseCase.sendNotification(message, receiverId, (_a = req.user) === null || _a === void 0 ? void 0 : _a._id);
-                const notificationCount = yield notificationModel_1.NotificationModel.countDocuments();
+                const notificationCount = yield notificationModel_1.NotificationModel.countDocuments({ recipient: receiverId });
                 this.io.emit("notificationCountUpdate", notificationCount);
                 res.json(notified);
             }

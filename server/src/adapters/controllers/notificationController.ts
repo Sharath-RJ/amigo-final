@@ -16,7 +16,7 @@ export class notificationController {
         try {
             const { message, receiverId } = req.body
             const notified = await this._notificationUseCase.sendNotification(message,receiverId, req.user?._id);
-            const notificationCount = await NotificationModel.countDocuments()
+            const notificationCount = await NotificationModel.countDocuments({ recipient: receiverId })
 
         
             this.io.emit("notificationCountUpdate", notificationCount)
