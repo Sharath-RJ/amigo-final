@@ -88,9 +88,11 @@ class AuthController {
                     return res.status(400).json({ error: "Invalid stored data" });
                 }
                 const expiringTime = createdAt.getTime();
-                const otpAge = (new Date().getTime() - expiringTime) / 1000 / 60; // Age in minutes
+                console.log("CreatedAt timestamp:", expiringTime);
+                const currentTime = new Date().getTime();
+                console.log("Current timestamp:", currentTime);
+                const otpAge = (currentTime - expiringTime) / 1000 / 60; // Age in minutes
                 console.log("OTP age:", otpAge);
-                console.log("OTP expiration time:", expiringTime);
                 if (otpAge > 3) {
                     console.log("OTP has expired");
                     return res.status(400).json({ error: "OTP has expired" });
