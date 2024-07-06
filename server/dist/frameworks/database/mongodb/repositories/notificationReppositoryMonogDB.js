@@ -32,5 +32,15 @@ class notificationMongoDB {
             }
         });
     }
+    getNotificationCount(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield notificationModel_1.NotificationModel.find({ recipient: id }).count();
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
 }
 exports.notificationMongoDB = notificationMongoDB;

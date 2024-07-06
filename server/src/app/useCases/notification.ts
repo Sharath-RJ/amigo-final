@@ -12,4 +12,8 @@ export class notificationUseCase {
     getNotifications(id: string) {  
         return this._notificatoionRepository.getNotifications(id)
     }
+
+    getNotificationCount(id: string) {
+        return this._notificatoionRepository.getNotificationCount(id)
+    }
 }

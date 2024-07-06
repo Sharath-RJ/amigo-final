@@ -16,6 +16,7 @@ function notificationRouter() {
     const notificationControllerinstance = new notificationController_1.notificationController(notifiactionUseCaseINstance, app_1.io);
     router.post("/sendNotifiction", authMiddleware_1.default, notificationControllerinstance.sendNotification.bind(notificationControllerinstance));
     router.get("/getAllNotifications", authMiddleware_1.default, notificationControllerinstance.getNotifications.bind(notificationControllerinstance));
+    router.get("/getNotificationCount", authMiddleware_1.default, notificationControllerinstance.getNotificationCount.bind(notificationControllerinstance));
     return router;
 }
 exports.default = notificationRouter;

@@ -17,4 +17,13 @@ export class notificationMongoDB implements notificationRepository
             console.log(error)
         }
     }
+
+    async getNotificationCount(id: string): Promise<any> {
+         try {
+            return await NotificationModel.find({recipient: id}).count()
+         } catch (error) {
+            console.log(error)
+         }
+    }
+
 }

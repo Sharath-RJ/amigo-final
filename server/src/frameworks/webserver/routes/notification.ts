@@ -15,6 +15,7 @@ export default function notificationRouter():Router{
 
      router.post("/sendNotifiction", authenticate, notificationControllerinstance.sendNotification.bind(notificationControllerinstance))
      router.get("/getAllNotifications", authenticate, notificationControllerinstance.getNotifications.bind(notificationControllerinstance))
+     router.get("/getNotificationCount", authenticate, notificationControllerinstance.getNotificationCount.bind(notificationControllerinstance))
 
    
 

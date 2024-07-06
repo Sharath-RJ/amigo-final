@@ -35,4 +35,15 @@ export class notificationController {
             res.status(500).json({ error: 'An error occurred while fetching notifications.' });
         }
     }
+
+    async getNotificationCount(req: customRequest, res: Response): Promise<void> {
+        try {
+            const notificaitonCount = await this._notificationUseCase.getNotificationCount(req.user?._id);
+            console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",notificaitonCount)
+            res.json(notificaitonCount);
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 }
