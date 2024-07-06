@@ -39,6 +39,10 @@ function configureSocket(server) {
             });
         });
     });
+    function emitNotificationCountUpdate(count) {
+        io.emit("notificationCountUpdate", count);
+    }
+    global.emitNotificationCountUpdate = emitNotificationCountUpdate;
     return io;
 }
 exports.default = configureSocket;

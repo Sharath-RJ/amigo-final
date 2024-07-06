@@ -1,7 +1,8 @@
 // postController.ts
 import { Request, Response } from "express"
 import { PostUseCase } from "../../app/useCases/post"
-import { postRepositoryMongoDB } from "../../frameworks/database/mongodb/repositories/postRepositoryMongoDB"
+import { Server as SocketIOServer } from "socket.io"
+
 
 interface customRequest extends Request{
     user?:any;
@@ -9,7 +10,7 @@ interface customRequest extends Request{
 }
 
 export class PostController {
-    constructor(private postUseCase: PostUseCase) {}
+    constructor(private postUseCase: PostUseCase, private io: SocketIOServer) {}
 
     async addPost(req: Request, res: Response): Promise<void> {
         try {

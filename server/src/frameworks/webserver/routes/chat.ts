@@ -25,7 +25,7 @@ export default function ChatRouter(): Router {
     const chatControllerInstance = new ChatControllerClass(
         chatUseCaseInstance,
         io
-    ) // Pass io instance
+    ) 
 
     router.post(
         "/send",

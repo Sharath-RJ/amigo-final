@@ -10,9 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.notificationController = void 0;
+const notificationModel_1 = require("../../frameworks/database/mongodb/models/notificationModel");
 class notificationController {
-    constructor(_notificationUseCase) {
+    constructor(_notificationUseCase, io) {
         this._notificationUseCase = _notificationUseCase;
+        this.io = io;
     }
     sendNotification(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -20,6 +22,8 @@ class notificationController {
             try {
                 const { message, receiverId } = req.body;
                 const notified = yield this._notificationUseCase.sendNotification(message, receiverId, (_a = req.user) === null || _a === void 0 ? void 0 : _a._id);
+                const notificationCount = yield notificationModel_1.NotificationModel.countDocuments();
+                this.io.emit("notificationCountUpdate", notificationCount);
                 res.json(notified);
             }
             catch (error) {

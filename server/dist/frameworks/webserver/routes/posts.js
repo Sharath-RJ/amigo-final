@@ -10,11 +10,12 @@ const postRepositoryMongoDB_1 = require("../../../frameworks/database/mongodb/re
 const multerMiddleware_1 = __importDefault(require("../../../frameworks/webserver/middlewares/multerMiddleware"));
 const authMiddleware_1 = __importDefault(require("../middlewares/authMiddleware"));
 const checkBlockMiddleware_1 = require("../middlewares/checkBlockMiddleware");
+const app_1 = require("../../../app");
 function PostsRouter() {
     const router = express_1.default.Router();
     const postRepository = new postRepositoryMongoDB_1.postRepositoryMongoDB();
     const postUseCase = new post_1.PostUseCase(postRepository);
-    const postController = new postController_1.PostController(postUseCase);
+    const postController = new postController_1.PostController(postUseCase, app_1.io);
     router.post("/addPost", multerMiddleware_1.default.array("images"), authMiddleware_1.default, checkBlockMiddleware_1.isBlocked, postController.addPost.bind(postController));
     router.get("/getAllPosts", postController.getAllPosts.bind(postController));
     router.put("/likePost/:postid", authMiddleware_1.default, checkBlockMiddleware_1.isBlocked, postController.likePost.bind(postController));

@@ -5,13 +5,14 @@ import { postRepositoryMongoDB } from "../../../frameworks/database/mongodb/repo
 import upload from "../../../frameworks/webserver/middlewares/multerMiddleware"
 import authenticate from "../middlewares/authMiddleware"
 import { isBlocked } from "../middlewares/checkBlockMiddleware"
+import { io } from "../../../app"
 
 export default function PostsRouter(): Router {
     const router = express.Router()
 
     const postRepository = new postRepositoryMongoDB()
     const postUseCase = new PostUseCase(postRepository)
-    const postController = new PostController(postUseCase)
+    const postController = new PostController(postUseCase, io)
 
     router.post(
         "/addPost",

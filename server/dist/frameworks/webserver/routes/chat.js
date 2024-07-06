@@ -28,7 +28,7 @@ function ChatRouter() {
     const router = express_1.default.Router();
     const chatRepository = new messageRepositoryMongoDB_1.messageRepositoryMongoDB();
     const chatUseCaseInstance = new chat_1.chatUseCase(chatRepository);
-    const chatControllerInstance = new chatController_1.chatController(chatUseCaseInstance, app_1.io); // Pass io instance
+    const chatControllerInstance = new chatController_1.chatController(chatUseCaseInstance, app_1.io);
     router.post("/send", authMiddleware_1.default, checkBlockMiddleware_1.isBlocked, chatControllerInstance.sendMessage.bind(chatControllerInstance));
     router.get("/getAllMessages/:senderId/:receiverId", authMiddleware_1.default, checkBlockMiddleware_1.isBlocked, chatControllerInstance.getChatHistory.bind(chatControllerInstance));
     router.get("/getChatUsers/:id", authMiddleware_1.default, checkBlockMiddleware_1.isBlocked, chatControllerInstance.getChatUsers.bind(chatControllerInstance));
