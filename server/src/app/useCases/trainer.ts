@@ -43,4 +43,8 @@ export class trainerUseCase {
     async updateSlot(status:string,slot:string){
         return await this._trainerRepository.updateSlot(status,slot)
     }
+
+    async checkSlotBooked(slot:string){
+        return await this._trainerRepository.checkSlotBooked(slot)
+    }
 }

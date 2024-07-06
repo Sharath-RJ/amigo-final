@@ -74,11 +74,6 @@ class trainerRepositoryMongoDB {
                     client: userId,
                     slot: slot,
                 });
-                //booking slot
-                //    return await UserModel.updateOne(
-                //         { _id: trainerId, "AvailableSlots.timeRange": slot },
-                //         { $set: { "AvailableSlots.$.status": "booked" } }
-                //     )
             }
             catch (error) {
                 console.log(error);
@@ -99,6 +94,16 @@ class trainerRepositoryMongoDB {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 return yield userModel_1.UserModel.updateOne({ "AvailableSlots._id": slot }, { $set: { "AvailableSlots.$.status": status } }, { upsert: true });
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
+    checkSlotBooked(slot) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield userModel_1.UserModel.findOne({ "AvailableSlots._id": slot });
             }
             catch (error) {
                 console.log(error);

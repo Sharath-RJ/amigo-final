@@ -74,11 +74,7 @@ export class trainerRepositoryMongoDB implements trainerRepository {
                 client: userId,
                 slot: slot,
             })
-            //booking slot
-        //    return await UserModel.updateOne(
-        //         { _id: trainerId, "AvailableSlots.timeRange": slot },
-        //         { $set: { "AvailableSlots.$.status": "booked" } }
-        //     )
+      
         } catch (error) {
             console.log(error)
         }
@@ -99,6 +95,14 @@ async updateSlot(status: string, slot: string): Promise<any> {
             { $set: { "AvailableSlots.$.status": status } },
             { upsert: true }
         )
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async  checkSlotBooked(slot: string): Promise<any> {
+    try {
+        return await UserModel.findOne({ "AvailableSlots._id": slot })
     } catch (error) {
         console.log(error)
     }

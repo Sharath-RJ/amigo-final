@@ -17,6 +17,7 @@ export default function trainerRouter():Router{
    router.post("/bookNow", authenticate, trainerController.bookNow.bind(trainerController));
    router.get("/getAllAppointments",authenticate, trainerController.getAllAppointments.bind(trainerController));
    router.patch("/updateSlot/:slot", authenticate, trainerController.updateSlot.bind(trainerController));
+   router.get("/CheckSlotBooked/:slot", trainerController.checkSlotBooked.bind(trainerController));
 
    return router
 }

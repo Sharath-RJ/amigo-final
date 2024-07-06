@@ -11,5 +11,6 @@ export interface trainerRepository {
     bookNow(slot: string, trainerId: string, userId: string): Promise<any>
     getAllAppointments(id:string):Promise<any>
     updateSlot(status:string,slot:string):Promise<any>
+    checkSlotBooked(slot:string):Promise<any>
     
 }

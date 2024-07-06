@@ -103,4 +103,18 @@ export class TrainerController {
       console.log(error)
     }
   }
+
+  async checkSlotBooked(req:customRequest, res:Response):Promise<any> {
+    try {
+      const{slot}=req.params
+      console.log(slot)
+      const checkSlot=await this._trainerUseCase.checkSlotBooked(slot)
+      console.log(checkSlot)
+      if(checkSlot){
+        res.status(200).json(checkSlot)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }

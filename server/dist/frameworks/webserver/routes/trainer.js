@@ -20,6 +20,7 @@ function trainerRouter() {
     router.post("/bookNow", authMiddleware_1.default, trainerController.bookNow.bind(trainerController));
     router.get("/getAllAppointments", authMiddleware_1.default, trainerController.getAllAppointments.bind(trainerController));
     router.patch("/updateSlot/:slot", authMiddleware_1.default, trainerController.updateSlot.bind(trainerController));
+    router.get("/CheckSlotBooked/:slot", trainerController.checkSlotBooked.bind(trainerController));
     return router;
 }
 exports.default = trainerRouter;

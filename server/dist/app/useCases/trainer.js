@@ -50,5 +50,10 @@ class trainerUseCase {
             return yield this._trainerRepository.updateSlot(status, slot);
         });
     }
+    checkSlotBooked(slot) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this._trainerRepository.checkSlotBooked(slot);
+        });
+    }
 }
 exports.trainerUseCase = trainerUseCase;

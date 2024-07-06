@@ -122,5 +122,21 @@ class TrainerController {
             }
         });
     }
+    checkSlotBooked(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { slot } = req.params;
+                console.log(slot);
+                const checkSlot = yield this._trainerUseCase.checkSlotBooked(slot);
+                console.log(checkSlot);
+                if (checkSlot) {
+                    res.status(200).json(checkSlot);
+                }
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
 }
 exports.TrainerController = TrainerController;
