@@ -93,6 +93,8 @@ export class AuthController {
 
             const expiringTime = createdAt.getTime()
             const otpAge = (new Date().getTime() - expiringTime) / 1000 / 60 // Age in minutes
+            console.log("OTP age:", otpAge)
+            console.log("OTP expiration time:", expiringTime)
             if (otpAge > 3) {
                 console.log("OTP has expired")
                 return res.status(400).json({ error: "OTP has expired" })
