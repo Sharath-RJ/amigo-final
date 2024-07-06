@@ -103,7 +103,7 @@ class trainerRepositoryMongoDB {
     checkSlotBooked(slot) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield userModel_1.UserModel.findOne({ "AvailableSlots._id": slot });
+                return yield userModel_1.UserModel.findOne({ "AvailableSlots._id": slot }, { AvailableSlots: 1 });
             }
             catch (error) {
                 console.log(error);

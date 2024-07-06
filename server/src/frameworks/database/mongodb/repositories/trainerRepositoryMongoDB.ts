@@ -102,7 +102,10 @@ async updateSlot(status: string, slot: string): Promise<any> {
 
 async  checkSlotBooked(slot: string): Promise<any> {
     try {
-        return await UserModel.findOne({ "AvailableSlots._id": slot })
+        return await UserModel.findOne(
+            { "AvailableSlots._id": slot },
+            { AvailableSlots: 1 }
+        )
     } catch (error) {
         console.log(error)
     }
