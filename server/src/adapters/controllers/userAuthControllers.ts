@@ -1,14 +1,12 @@
 
 import { Request, Response } from "express"
 import { AuthUseCase } from "../../app/useCases/auth/userAuth"
-import { AuthResponse } from "../../types/authResponse"
+import { AuthResponse } from "../../frameworks/types/authResponse"
 import { TempOtp } from "../../frameworks/database/mongodb/models/tempOtpModel"
 import { error } from "node:console"
 
 export class AuthController {
     constructor(private authUseCase: AuthUseCase) {}
-
-   
 
     async login(req: Request, res: Response): Promise<void> {
         try {
@@ -64,7 +62,7 @@ export class AuthController {
         }
     }
 
-    async verifyOtp(req: Request, res: Response): Promise<void> {
+    async verifyOtp(req: Request, res: Response): Promise<Response> {
         try {
             console.log("inside verifyOtp controller", req.body)
             const { phoneNumber, otp } = req.body
@@ -77,75 +75,70 @@ export class AuthController {
                 console.log(
                     "No stored data found for phone number:",
                     phoneNumber
-                    
                 )
-                 res
+                return res
                     .status(400)
                     .json({ error: "Invalid phone number or OTP" })
             }
 
-            const storedOtp = storedData?.otp
+            const storedOtp = storedData.otp
             console.log("stored data otp", storedOtp)
             console.log("Otp from user:", otp)
 
-                        // Check if the OTP has expired
-
-
-             const createdAt = storedData?.createdAt
-             if (!createdAt) {
-                 console.log("createdAt is undefined")
-                 res.status(400).json({ error: "Invalid stored data" })
-                 return
-             }
-            
-            const expiringTime = createdAt.getTime()
-            const otpAge = (new Date().getTime() - expiringTime) / 1000 / 60; // Age in minutes
-            if (otpAge > 3) {
-                console.log("OTP has expired");
-                 res.status(400).json({ error: "OTP has expired" });
+            const createdAt = storedData.createdAt
+            if (!createdAt) {
+                console.log("createdAt is undefined")
+                return res.status(400).json({ error: "Invalid stored data" })
             }
 
+            const expiringTime = createdAt.getTime()
+            const otpAge = (new Date().getTime() - expiringTime) / 1000 / 60 // Age in minutes
+            if (otpAge > 3) {
+                console.log("OTP has expired")
+                return res.status(400).json({ error: "OTP has expired" })
+            }
 
             if (storedOtp == otp) {
-                
-                if (!storedData?.username || !storedData?.email || !storedData?.password || !storedData?.phoneNumber) {
-                     res
+                if (
+                    !storedData.username ||
+                    !storedData.email ||
+                    !storedData.password ||
+                    !storedData.phoneNumber
+                ) {
+                    return res
                         .status(400)
                         .json({ error: "Invalid stored user data" })
                 }
 
                 // OTP is correct, register the user
-                if (storedData?.username!==undefined){
-                    const success = await this.authUseCase.register(
-                        storedData?.username,
-                        storedData?.email,
-                        storedData?.password,
-                        storedData?.phoneNumber,
-                        storedData?.role
-                    )
-                
-                   
+                const success = await this.authUseCase.register(
+                    storedData.username,
+                    storedData.email,
+                    storedData.password,
+                    storedData.phoneNumber,
+                    storedData.role
+                )
 
                 if (success) {
                     // Remove the OTP entry after successful registration
                     await TempOtp.deleteOne({ phoneNumber })
 
-                    res.status(200).json({
+                    return res.status(200).json({
                         message:
                             "OTP verified and user registered successfully",
                     })
                 } else {
-                    res.status(400).json({ error: "Registration failed" })
+                    return res
+                        .status(400)
+                        .json({ error: "Registration failed" })
                 }
-
-            }
             } else {
                 console.log("Invalid OTP")
-                res.status(400).json({ error: "Invalid OTP" })
+                return res.status(400).json({ error: "Invalid OTP" })
             }
         } catch (error) {
             console.error("OTP verification error:", error)
-            res.status(500).json({ error: "Internal server error" })
+            return res.status(500).json({ error: "Internal server error" })
         }
     }
 }

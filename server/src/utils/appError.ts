@@ -1,4 +1,4 @@
-import { HttpStatus } from "../types/httpStatus"
+import { HttpStatus } from "../frameworks/types/httpStatus"
 
 class AppError extends Error {
     statusCode: number

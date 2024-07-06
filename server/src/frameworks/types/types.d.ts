@@ -1,4 +1,4 @@
-import { UserDocument } from "../frameworks/database/mongodb/models/userModel";
+import { UserDocument } from "../database/mongodb/models/userModel";
 
 
 declare global {
